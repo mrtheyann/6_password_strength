@@ -3,7 +3,7 @@
 import re
 
 
-def get_password_strength(password):
+def set_password_strength(password):
     password_strength = dict.fromkeys([
         'not_in_blacklist',
         'has_special',
@@ -41,7 +41,11 @@ def get_password_strength(password):
         if (not re.search(r'^(19|20)\d{2}', password) and
                 not re.search(r'[0-9]{4}$', password)):
                     password_strength['has_no_date'] = True
+    return password_strength
 
+
+def get_password_strength(password):
+    password_strength = set_password_strength(password)
     if password_strength['not_in_blacklist'] is True:
         score = len([b for b in password_strength.values() if b])
         if not all([password_strength[key] is True for key in
