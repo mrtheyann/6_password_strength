@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import re
 
+
 def get_password_strength(password):
     password_strength = dict.fromkeys([
         'not_in_blacklist',
@@ -46,6 +47,8 @@ def get_password_strength(password):
         if not all([password_strength[key] is True for key in
            password_strength.keys()][2:5]):
             return round(score * 1.33)
+        if password[-1].isdigit():
+            return round(score * 1.22)
         else:
             return round(score * 1.66)
     else:
@@ -64,7 +67,7 @@ def main():
         print('\nWARNING: The password must be between 6 and 12 characters.\n')
 
     score = get_password_strength(password)
-    print(score)
+    print('Your password score is {0}'.format(score))
 
 
 if __name__ == '__main__':
