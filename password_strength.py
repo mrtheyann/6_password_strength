@@ -21,6 +21,8 @@ def set_password_strength(password):
         '5678abc',
         'qwer',
         'asdf',
+        'Passw',
+        'Qwer',
         '1q2w3e',
         '9876',
         '5432',
