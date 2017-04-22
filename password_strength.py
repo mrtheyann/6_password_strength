@@ -1,11 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import re
-import time
-
 
 def get_password_strength(password):
-    start_time = time.time()
     password_strength = dict.fromkeys([
         'not_in_blacklist',
         'has_special',
@@ -48,12 +45,12 @@ def get_password_strength(password):
         score = len([b for b in password_strength.values() if b])
         if not all([password_strength[key] is True for key in
            password_strength.keys()][2:5]):
-            print(round(score))
+            return round(score * 1.33)
         else:
-            print(round(score * 1.66))
+            return round(score * 1.66)
     else:
         score = 1
-        print(score)
+        return score
 
 
 def main():
@@ -66,7 +63,8 @@ def main():
             break
         print('\nWARNING: The password must be between 6 and 12 characters.\n')
 
-    get_password_strength(password)
+    score = get_password_strength(password)
+    print(score)
 
 
 if __name__ == '__main__':
