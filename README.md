@@ -1,6 +1,7 @@
 # Password Strength Calculator
 
-Calculator that helps to find out if password strong or not.
+Calculator that helps to find out if the password is strong or not. 
+
 Based on rules:
 ```
 • the use of both upper-case and lower-case letters (case sensitivity)
@@ -34,5 +35,4 @@ python tests.py
 
 # Project Goals
 
-Mostly,
 The code is written for educational purposes. Check root repo for details.
