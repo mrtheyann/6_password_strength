@@ -3,11 +3,11 @@
 Calculator that helps to find out if password strong or not.
 Based on rules:
 ```
-* the use of both upper-case and lower-case letters (case sensitivity)
-* inclusion of one or more numerical digits
-* inclusion of special characters, such as @, #, $
-* prohibition of words found in a password blacklist
-* prohibition of passwords that match the format of calendar dates or other common numbers
+• the use of both upper-case and lower-case letters (case sensitivity)
+• inclusion of one or more numerical digits
+• inclusion of special characters, such as @, #, $
+• prohibition of words found in a password blacklist
+• prohibition of passwords that match the format of calendar dates or other common numbers
 ```
 
 # How to Use
