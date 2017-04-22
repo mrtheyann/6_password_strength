@@ -24,7 +24,7 @@ The password must be between 6 and 12 characters.
 Password:
 ```
 
-Type your password
+Type your password.
 
 # How to Launch Tests
 
