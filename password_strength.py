@@ -3,16 +3,7 @@
 import re
 
 
-def set_password_strength(password):
-    password_strength = dict.fromkeys([
-        'not_in_blacklist',
-        'has_special',
-        'has_upper',
-        'has_lower',
-        'has_num',
-        'has_no_date',
-        ], False)
-
+def compile_blacklist():
     # character repeating stands for r'(.)\1{4,}'
 
     blacklist = [
@@ -28,7 +19,22 @@ def set_password_strength(password):
         '5432',
         'pass',
         ]
-    bl_match = [re.compile(bl) for bl in blacklist]
+    blacklist_compiled = [re.compile(bl) for bl in blacklist]
+    return blacklist_compiled
+
+
+def set_password_strength(password):
+
+    password_strength = dict.fromkeys([
+        'not_in_blacklist',
+        'has_special',
+        'has_upper',
+        'has_lower',
+        'has_num',
+        'has_no_date',
+        ], False)
+
+    bl_match = compile_blacklist()
 
     if not any(p.match(password) for p in bl_match):
         password_strength['not_in_blacklist'] = True
