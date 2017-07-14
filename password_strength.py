@@ -1,7 +1,33 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import re
+import getpass
+import requests
 
+def check_number(password):
+    return bool(re.findall(r'[0-9]', password))
+
+def check_upper(password):
+    return bool(re.findall(r'[A-Z]', password))
+
+def check_lower(password):
+    return bool(re.findall(r'[a-z]', password))
+
+def check_special(password):
+    return bool(re.findall(r'[!@#$%&?_]', password))
+
+def check_repeating(password):
+    return re.findall(r'(.)\1{2,}', password)
+
+def check_year(password):
+    for year in range(1930,2019):
+        if str(year) in password:
+            return True
+
+def get_password_blacklist():
+    blacklist_url = 'https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/10_million_password_list_top_10000.txt'
+    blacklist = requests.get(blacklist_url)
+    print(blacklist.split('\r\n'))
 
 def compile_blacklist():
     # character repeating stands for r'(.)\1{4,}'
@@ -54,14 +80,18 @@ def set_password_strength(password):
 
 def get_password_strength(password):
     password_strength = set_password_strength(password)
+    print(password, password_strength.values())
     if password_strength['not_in_blacklist'] is True:
         score = len([b for b in password_strength.values() if b])
         if not all([password_strength[key] is True for key in
            password_strength.keys()][2:5]):
+            print(score)
             return round(score * 1.33)
         if password[-1].isdigit():
+            print(score)
             return round(score * 1.22)
         else:
+            print(score)
             return round(score * 1.66)
     else:
         score = 1
@@ -73,13 +103,16 @@ def main():
           'The password must be between 6 and 12 characters.\n')
 
     while True:
-        password = input('Password: ')
-        if 6 <= len(password) < 12:
+        password =  getpass.getpass(prompt= 'Password: ')
+        print(password)
+        print(len(password))
+        if 6 <= len(password) <= 12:
             break
         print('\nWARNING: The password must be between 6 and 12 characters.\n')
 
     score = get_password_strength(password)
     print('Your password score is {0}'.format(score))
+    print(get_password_blacklist())
 
 
 if __name__ == '__main__':
